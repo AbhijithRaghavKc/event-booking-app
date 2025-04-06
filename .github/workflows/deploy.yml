@@ -20,29 +20,32 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: 🚀 Deploy via SSH
+      - name: 🚀 Deploy on EC2 via SSH
         run: |
           ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            echo "🔄 Navigating to project directory..."
-            cd /home/ec2-user/event-booking-app
 
-            echo "🛑 Killing any existing Flask process..."
+            echo "🛑 Killing existing Flask app if running..."
             pkill -f "python3.11 app.py" || true
 
-            echo "📦 Creating venv with Python 3.11.5 if not exists..."
-            if [ ! -d "venv" ]; then
-              python3.11 -m venv venv
-            fi
+            echo "🧹 Cleaning old project directory..."
+            rm -rf /home/ec2-user/event-booking-app
+
+            echo "📥 Cloning latest code..."
+            git clone https://github.com/AbhijithRaghavKc/event-booking-app.git /home/ec2-user/event-booking-app
+
+            echo "📦 Creating Python 3.11.5 virtual environment..."
+            cd /home/ec2-user/event-booking-app
+            python3.11 -m venv venv
 
             echo "⚙️ Activating virtual environment..."
             source venv/bin/activate
 
-            echo "📥 Installing dependencies..."
+            echo "📦 Installing dependencies from requirements.txt..."
             pip install --upgrade pip
             pip install -r requirements.txt
 
-            echo "🚀 Starting Flask app using nohup..."
+            echo "🚀 Starting Flask app in background with nohup..."
             nohup python3.11 app.py > flask.log 2>&1 &
+
+            echo "✅ Deployment complete."
           EOF
-
-
