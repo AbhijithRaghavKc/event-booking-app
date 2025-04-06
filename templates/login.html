@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2 class="mb-4">Admin Login</h2>
+<form method="POST" class="w-50 mx-auto shadow p-4 rounded bg-white">
+    <div class="mb-3">
+        <label for="username">Username</label>
+        <input name="username" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="password">Password</label>
+        <input name="password" type="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+{% endblock %}

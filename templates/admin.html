@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Create New Event</h2>
+<form method="POST" class="mb-5">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Date</label>
+            <input type="date" name="date" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Location</label>
+            <input type="text" name="location" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Available Tickets</label>
+            <input type="number" name="available_tickets" class="form-control" required>
+        </div>
+        <div class="col-12 mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="3"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Event</button>
+</form>
+
+<h3>All Events</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th><th>Date</th><th>Location</th><th>Tickets</th><th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event[1] }}</td>
+            <td>{{ event[3] }}</td>
+            <td>{{ event[4] }}</td>
+            <td>{{ event[5] }}</td>
+            <td>
+                <a href="{{ url_for('edit_event', event_id=event[0]) }}" class="btn btn-sm btn-warning">
+                    <i class="fa fa-edit"></i> Edit
+                </a>
+                <form action="{{ url_for('delete_event', event_id=event[0]) }}" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

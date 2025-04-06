@@ -1,0 +1,36 @@
+body {
+    background-color: #f0f2f5;
+}
+
+.card {
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    border: none;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.toast {
+    min-width: 250px;
+}
+
+.btn-primary {
+    background-color: #4a69bd;
+    border: none;
+}
+
+.btn-success {
+    background-color: #38ada9;
+    border: none;
+}
+
+.hero-section {
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+h1, h4 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
