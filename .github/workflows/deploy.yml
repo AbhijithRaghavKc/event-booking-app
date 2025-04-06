@@ -44,3 +44,5 @@ jobs:
             echo "🚀 Starting Flask app using nohup..."
             nohup python3.11 app.py > flask.log 2>&1 &
           EOF
+
+
